@@ -15,7 +15,7 @@ class RepositoriesTests(@Autowired val entityManager: TestEntityManager,
 						@Autowired val articleRepository: ArticleRepository) {
 
 	@Test
-	fun `When findById then return Article`() {
+	fun Whe_findById_then_return_Article() {
 		val juergen = User("springjuergen", "Juergen", "Hoeller")
 		entityManager.persist(juergen)
 		val article = Article("Spring Framework 5.0 goes GA", "Dear Spring community ...", "Lorem ipsum", juergen)
@@ -28,7 +28,7 @@ class RepositoriesTests(@Autowired val entityManager: TestEntityManager,
 	}
 
 	@Test
-	fun `When findById then return User`() {
+	fun When_findById_then_return_User() {
 		val juergen = User("springjuergen", "Juergen", "Hoeller")
 		entityManager.persist(juergen)
 		entityManager.flush()

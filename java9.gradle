@@ -15,3 +15,8 @@ compileTestKotlin {
         jvmTarget = JavaVersion.VERSION_1_8
     }
 }
+
+dependencies {
+    compile "org.glassfish.jaxb:jaxb-runtime:2.3.0"
+    compile "javax.activation:activation:1.1.1"
+}

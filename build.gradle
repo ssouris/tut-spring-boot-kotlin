@@ -27,26 +27,25 @@ apply plugin: 'io.spring.dependency-management'
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
-if (Jvm.current().toString().startsWith("1.8.0")) {
-    apply from: 'java8gradle'
-} else if (Jvm.current().toString().startsWith("9")) {
-    apply from: 'java9.gradle'
+def jvmVersion = Jvm.current().toString()
+if (jvmVersion.startsWith("1.8.0")) {
+    ext.buildProfile = 'java8'
+} else if (jvmVersion.startsWith("9")) {
+    ext.buildProfile = 'java9'
+} else {
+    throw new GradleScriptException("Java version " +jvmVersion+" not supported", new Exception())
 }
-// else if (org.gradle.internal.jvm.Jvm.current().toString().startsWith("10")) {
-//    apply from: 'java10.gradle'
-//}
+apply from: "${buildProfile}.gradle"
 
 
 compileKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ["-Xjsr305=strict"]
-//		jvmTarget = "1.8"
 	}
 }
 compileTestKotlin {
 	kotlinOptions {
 		freeCompilerArgs = ["-Xjsr305=strict"]
-//		jvmTarget = "1.8"
 	}
 }
 
@@ -76,7 +75,4 @@ dependencies {
 	testCompile("com.nhaarman:mockito-kotlin:1.5.0")
 	testImplementation('org.junit.jupiter:junit-jupiter-api')
 	testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine')
-
-    compile "org.glassfish.jaxb:jaxb-runtime:2.3.0"
-    compile "javax.activation:activation:1.1.1"
 }
